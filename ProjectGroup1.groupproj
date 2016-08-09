@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B0E33035-C6A4-4DCD-B386-73753DA9A426}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="RestSrvCli.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Client\RestCli.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="RestSrvCli">
+        <MSBuild Projects="RestSrvCli.dproj"/>
+    </Target>
+    <Target Name="RestSrvCli:Clean">
+        <MSBuild Projects="RestSrvCli.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RestSrvCli:Make">
+        <MSBuild Projects="RestSrvCli.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RestCli">
+        <MSBuild Projects="Client\RestCli.dproj"/>
+    </Target>
+    <Target Name="RestCli:Clean">
+        <MSBuild Projects="Client\RestCli.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RestCli:Make">
+        <MSBuild Projects="Client\RestCli.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="RestSrvCli;RestCli"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="RestSrvCli:Clean;RestCli:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="RestSrvCli:Make;RestCli:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
